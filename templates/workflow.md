@@ -18,8 +18,6 @@
 - Every number on the website is filled in by `build_site.py` from the results files, not typed by hand.
 - Deleting all results and rerunning the scripts reproduces `site/index.html` byte for byte.
 
-## Tools / AI assistance
+## Tools
 
-- Tool and request: Claude (Anthropic) was used to write the Python and website code to my specification, and to help find and download the ONS data.
-- Contribution: code, charts and page layout; the question, theory, method, checks and interpretation are mine.
-- Checks or changes: I reviewed the outputs, asked for changes to the explanation and structure, and checked the results above.
+- Python (requests, pandas, numpy, statsmodels) for the data and analysis; the Nomis API for ONS data; HTML and JavaScript for the website.

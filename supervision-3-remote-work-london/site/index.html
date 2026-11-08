@@ -10,19 +10,18 @@
 html { background:var(--paper); }
 body { margin:0; background:var(--paper); color:var(--ink); font-family:Georgia,"Times New Roman",serif; font-size:18px; line-height:1.62; }
 .wrap { max-width:760px; margin:0 auto; padding:0 20px; }
-header { padding:56px 0 30px; }
-h1 { font-size:38px; line-height:1.15; font-weight:normal; margin:0 0 12px; }
+header { padding:60px 0 26px; }
+h1 { font-size:34px; line-height:1.2; font-weight:bold; margin:0 0 18px; }
 .sub { font-size:20px; color:var(--grey); margin:0 0 14px; }
 .by { font-size:15px; color:var(--grey); font-family:Arial,Helvetica,sans-serif; }
-.step { padding:34px 0 22px; border-top:1px solid var(--rule); }
-.stepno { font-family:Arial,Helvetica,sans-serif; font-size:13px; letter-spacing:.06em; color:var(--or); font-weight:bold; }
-h2 { font-size:26px; line-height:1.25; font-weight:normal; margin:4px 0 14px; }
-h3 { font-size:18px; margin:22px 0 6px; }
+.step { padding:18px 0 8px; }
+h2 { font-size:23px; line-height:1.3; font-weight:bold; margin:14px 0 10px; }
+h3 { font-size:18px; font-style:italic; font-weight:normal; margin:20px 0 6px; }
 p { margin:0 0 14px; }
 a { color:var(--link); }
 ul, ol { padding-left:22px; margin:0 0 14px; } li { margin-bottom:5px; }
 .sans { font-family:Arial,Helvetica,sans-serif; }
-.panel { background:#fff; border:1px solid var(--rule); padding:16px; margin:18px 0 10px; }
+.panel { margin:18px 0 14px; }
 .panel canvas, .panel svg { display:block; width:100%; height:auto; }
 .ctl { font-family:Arial,Helvetica,sans-serif; font-size:14.5px; display:grid; grid-template-columns:1fr 1fr; gap:10px 24px; margin:0 0 12px; }
 .ctl label { display:block; }
@@ -36,27 +35,24 @@ button[aria-pressed=true] { background:var(--ink); color:#fff; border-color:var(
 .cap { font-size:15px; color:var(--grey); line-height:1.45; margin:8px 0 0; }
 .key { font-family:Arial,Helvetica,sans-serif; font-size:13.5px; color:#333; display:flex; flex-wrap:wrap; gap:4px 16px; margin:4px 0 8px; }
 .sq { display:inline-block; width:11px; height:11px; margin-right:5px; vertical-align:-1px; }
-table { border-collapse:collapse; font-family:Arial,Helvetica,sans-serif; font-size:15px; width:100%; margin:8px 0 14px; }
+table { border-collapse:collapse; font-size:16px; width:100%; margin:8px 0 14px; }
 th, td { padding:7px 10px 7px 0; border-bottom:1px solid var(--rule); text-align:left; vertical-align:top; }
 td.n, th.n { text-align:right; font-variant-numeric:tabular-nums; white-space:nowrap; }
 tr.hl td { font-weight:bold; }
-.check { display:grid; grid-template-columns:1fr; gap:4px; padding:14px 0; border-bottom:1px solid var(--rule); }
-.check .q { font-weight:bold; }
-.verdict { font-family:Arial,Helvetica,sans-serif; font-size:14px; font-weight:bold; }
-.v-good { color:var(--gr); } .v-mixed { color:#a06a00; }
-.answer { font-size:21px; line-height:1.5; border-left:4px solid var(--or); padding:4px 0 4px 16px; margin:16px 0; }
+.answer { font-weight:bold; margin:16px 0; }
 .big { font-size:44px; line-height:1.05; font-family:Georgia,serif; }
 .two { display:grid; grid-template-columns:1fr 1fr; gap:16px; }
 @media (max-width:640px) { .ctl, .two { grid-template-columns:1fr; } h1 { font-size:30px; } }
 #tip { position:fixed; pointer-events:none; background:#fff; border:1px solid #999; font:13px Arial,sans-serif; padding:5px 8px; display:none; z-index:9; max-width:260px; line-height:1.4; }
 ol.refs { font-size:15px; }
 footer { padding:30px 0 70px; }
-details { margin:16px 0 18px; border-top:1px solid var(--rule); border-bottom:1px solid var(--rule); padding:8px 0; }
-summary { cursor:pointer; font-family:Arial,Helvetica,sans-serif; font-size:15px; font-weight:bold; padding:4px 0; }
+details { margin:14px 0 18px; }
+summary { cursor:pointer; color:var(--link); padding:2px 0; }
 details[open] summary { margin-bottom:10px; }
 .eq { font-family:"Courier New",monospace; font-size:14.5px; line-height:1.9; margin:6px 0 14px 12px; overflow-x:auto; white-space:nowrap; }
-.rule { border-left:4px solid var(--ink); padding:2px 0 2px 12px; }
+
 figure.panel { margin:14px 0; }
+.abstract { font-size:17px; line-height:1.6; color:#333; margin:0; }
 </style>
 </head>
 <body>
@@ -65,15 +61,13 @@ figure.panel { margin:14px 0; }
 
 <header>
   <h1>Has remote work made London more dominant?</h1>
-  <p class="sub">A step-by-step answer: build Krugman's model, add remote work, then test it against ten years of ONS data.</p>
-  <div class="by">Milo Sinclair · Paper 7, Regional Economics and Policy · Supervision 3 · November 2026</div>
+  <p class="abstract">Remote work should pull London two ways. Cheaper trade in services favours the biggest market, but people who earn in London and live elsewhere take their spending with them. I add that second force to Krugman's (1991) model, then test which one won using ONS jobs and pay data for 2015–2025, comparing industries that can work remotely with those that can't, before and after 2020. London's share of Britain's remote-able jobs rose from 30.9% to 33.2%, about 6% more than for in-person jobs, and the share of London pay going to people who live outside London rose from 26.8% to 29.8%. But nearly all of London's gain came from its own commuter belt, so the wider London region did not pull away from the rest of Britain.</p>
 </header>
 
 <!-- STEP 1 -->
 <section class="step">
-  <div class="stepno">STEP 1 · THE QUESTION AND THE TENSION</div>
-  <h2>Remote work pulls London two ways at once</h2>
-  <p>In Krugman's (1991) core–periphery model (Lectures 7–8), firms want to be near their customers because selling at a distance costs money, and workers move to whichever region pays the higher real wage. That creates a snowball: a region with a few more workers has more local spending, so more firms want to be there, so it pays more, so more workers come.</p>
+  <h2>1. Remote work pulls London two ways at once</h2>
+  <p>In Krugman's (1991) core–periphery model, firms want to be near their customers because selling at a distance costs money, and workers move to whichever region pays the higher real wage. That creates a snowball: a region with a few more workers has more local spending, so more firms want to be there, so it pays more, so more workers come.</p>
   <p>Remote work changes the model in two opposite ways:</p>
   <ol>
     <li><b>It lowers trade costs (T) for services.</b> A London firm can serve a client in Leeds over video instead of keeping an office there. Cheaper trade strengthens the snowball. <i>More London.</i></li>
@@ -114,8 +108,7 @@ figure.panel { margin:14px 0; }
 
 <!-- STEP 2 -->
 <section class="step">
-  <div class="stepno">STEP 2 · HOW BIG DOES EACH FORCE NEED TO BE?</div>
-  <h2>Mapping the trade-off</h2>
+  <h2>2. Mapping the trade-off</h2>
   <p>Step 1 shows the two forces pull opposite ways. To see how much of one it takes to cancel the other, I ran the same model for every combination of the two: 84 values of the trade cost T (from 1.01 to 2.2) times 45 values of θ (from 0 to 0.45), which is 3,780 runs. σ and μ stay fixed. For each run the computer asks two questions: can an even split last, and can one big cluster last?</p>
   <div class="panel">
     <div class="btns"><button type="button" id="runmap">Run the model 3,780 times</button></div>
@@ -124,13 +117,12 @@ figure.panel { margin:14px 0; }
     <p class="read" id="mapread">Press the button to build the map. Each square is one run of the model.</p>
   </div>
   <p>The edge of the orange area is the trade-off. With θ = 0 a cluster survives at trade costs up to 1.81; with θ = 0.1 only up to 1.53; with θ = 0.2 only up to 1.34. So <b>every 10 points of θ has to be matched by a 12–16% fall in trade costs</b> for the cluster to survive. I use this in Step 9.</p>
-  <p class="cap">"One cluster" means all the mobile workers in one region; the farmers stay split, so the cluster holds about 70% of everyone. In Krugman's basic model, in-between splits like 60/40 are not stable: they tip one way or the other. Real London obviously isn't all-or-nothing, so I use the model for which way the forces push, not where Britain ends up. As the lecture slides say, do not take the results literally.</p>
+  <p class="cap">"One cluster" means all the mobile workers in one region; the farmers stay split, so the cluster holds about 70% of everyone. In Krugman's basic model, in-between splits like 60/40 are not stable: they tip one way or the other. Real London obviously isn't all-or-nothing, so I use the model for which way the forces push, not where Britain ends up.</p>
 </section>
 
 <!-- STEP 3 -->
 <section class="step">
-  <div class="stepno">STEP 3 · WHAT EACH FORCE WOULD LEAVE BEHIND</div>
-  <h2>Two footprints to look for</h2>
+  <h2>3. Two footprints to look for</h2>
   <table>
     <tr><th>If this force is happening…</th><th>…the data should show</th><th>Where I look</th></tr>
     <tr><td>Cheaper trade in services</td><td>Remote-able jobs moving towards London, more than in-person jobs</td><td>Steps 4–7</td></tr>
@@ -140,12 +132,11 @@ figure.panel { margin:14px 0; }
 
 <!-- STEP 4 -->
 <section class="step">
-  <div class="stepno">STEP 4 · THE DATA</div>
-  <h2>What happened to London's share of each industry?</h2>
+  <h2>4. What happened to London's share of each industry?</h2>
   <p>I downloaded the ONS Business Register and Employment Survey (BRES), which counts jobs at each workplace, for every industry in every region of Great Britain from 2015 to 2024. For each industry I asked one question: <b>what share of Britain's jobs in it are in London, and did that share go up or down after 2020?</b> I compare the 2015–19 average with 2022–24, leaving out the lockdown years 2020–21.</p>
   <h3>Which industries count as remote-able</h3>
   <p>I sort industries by how much their staff work from home, using the ONS Business Insights and Conditions Survey (December 2023): the share of businesses where staff were working hybrid or fully from home.</p>
-  <p class="rule"><b>Remote-able:</b> more than 50%. <b>In-person:</b> less than 25%. Anything in between is left out, so the two groups are clearly different.</p>
+  <p><b>Remote-able:</b> more than 50%. <b>In-person:</b> less than 25%. Anything in between is left out, so the two groups are clearly different.</p>
   <table><tr><th>Industry (SIC section)</th><th class="n">Hybrid or home</th><th>Group</th></tr><tr><td>Finance and insurance (UKHLS, Jan 2021)</td><td class="n">84%</td><td>Remote-able</td></tr><tr><td>Information and communication</td><td class="n">77%</td><td>Remote-able</td></tr><tr><td>Professional, scientific and technical</td><td class="n">60%</td><td>Remote-able</td></tr><tr><td>Education</td><td class="n">47%</td><td>Left out</td></tr><tr><td>Real estate</td><td class="n">40%</td><td>Left out</td></tr><tr><td>Administrative and support</td><td class="n">27%</td><td>Left out</td></tr><tr><td>Health and social work</td><td class="n">20%</td><td>In-person</td></tr><tr><td>Wholesale and retail</td><td class="n">20%</td><td>In-person</td></tr><tr><td>Arts, entertainment and recreation</td><td class="n">19%</td><td>In-person</td></tr><tr><td>Manufacturing</td><td class="n">15%</td><td>In-person</td></tr><tr><td>Construction</td><td class="n">14%</td><td>In-person</td></tr><tr><td>Transport and storage</td><td class="n">11%</td><td>In-person</td></tr><tr><td>Other services</td><td class="n">10%</td><td>In-person</td></tr><tr><td>Accommodation and food</td><td class="n">6%</td><td>In-person</td></tr></table>
   <p class="cap">Finance is not covered by the ONS business survey. For finance I use the UK Household Longitudinal Study figure that 84% of finance workers worked from home in January 2021 (UK Parliament POSTbrief 49), well above the line. Sectors with no ONS figure (farming, mining, utilities, public administration) are left out.</p>
   <div class="panel">
@@ -160,10 +151,9 @@ figure.panel { margin:14px 0; }
 
 <!-- STEP 5 -->
 <section class="step">
-  <div class="stepno">STEP 5 · THE TEST</div>
-  <h2>Did remote-able jobs move to London more than in-person jobs?</h2>
+  <h2>5. Did remote-able jobs move to London more than in-person jobs?</h2>
   <h3>The result</h3>
-  <p>London's share of jobs can change for all sorts of reasons. So rather than just asking whether its share of remote-able jobs rose, I compare it with its share of in-person jobs, which remote work shouldn't affect. Anything that moved both cancels out. This is a difference-in-differences, from Lectures 9–10.</p>
+  <p>London's share of jobs can change for all sorts of reasons. So rather than just asking whether its share of remote-able jobs rose, I compare it with its share of in-person jobs, which remote work shouldn't affect. Anything that moved both cancels out. This is a difference-in-differences.</p>
   <table>
     <tr><th>London's share of Britain's jobs</th><th class="n">2015–19</th><th class="n">2022–24</th><th class="n">Relative change</th></tr>
     <tr><td>Remote-able industries</td><td class="n">30.9%</td><td class="n">33.2%</td><td class="n">+7.5%</td></tr>
@@ -177,22 +167,17 @@ figure.panel { margin:14px 0; }
     <p class="cap">Gap in London concentration between remote-able and in-person industries, each year compared with 2019, with 95% confidence intervals. The grey band is 2020–21, left out.</p>
   </figure>
   <h3>The adjustment</h3>
-  <p>To be safe anyway, I extended each group's pre-2020 trend line forward and measured only how far the real numbers rose <i>above</i> it after 2020:</p>
-  <table>
-    <tr><th>Allowing for pre-2020 trends</th><th class="n">Without</th><th class="n">With</th><th>Verdict</th></tr>
-    <tr><td>Main data (BRES)</td><td class="n">+6.0%</td><td class="n">+11.1%</td><td>Survives; borderline (p = 0.06)</td></tr>
-  </table>
+  <p>To be safe anyway, I extended each group's pre-2020 trend line forward and measured only how far the real numbers rose <i>above</i> it after 2020. That moves the estimate from +6.0% to <b>+11.1%</b> (p = 0.06).</p>
   <h3>What's left</h3>
   <p>Allowing for trends makes the result bigger, not smaller, because remote-able industries were, if anything, drifting slightly away from London before 2020. But the estimate is noisier, so it is still borderline. The honest conclusion: <b>London's share of remote-able jobs rose after 2020, and the timing points to remote work, but the evidence falls just short of proof.</b></p>
 </section>
 
 <!-- STEP 6 -->
 <section class="step">
-  <div class="stepno">STEP 6 · OTHER CHECKS</div>
-  <h2>Could it be a fluke?</h2>
-  <div class="check"><div class="q">Would the test find something even if nothing happened?</div><div>I ran a fake version: I pretended remote work started in 2017 and used only 2015–19, when there was no remote-work shock. If the method were biased towards finding a London gain, it would find one here too. It doesn't: the fake "effect" is −4.6%, the opposite direction, so remote-able jobs were not already drifting towards London.</div><div class="verdict v-good">The method doesn't manufacture a London gain.</div></div>
-  <div class="check"><div class="q">Is it all one industry?</div><div>Leaving out finance still gives +4.9%. Leaving out information and communication still gives +4.4%. Leaving out hospitality, which Covid hit hardest, still gives +5.7%.</div><div class="verdict v-good">Smaller without the big sectors, but still positive.</div></div>
-  <div class="check"><div class="q">Is it big enough to be sure?</div><div>The chance of a result this large if remote work had no effect is about 6%. Economists usually want under 5%.</div><div class="verdict v-mixed">Borderline: evidence, not proof.</div></div>
+  <h2>6. Could it be a fluke?</h2>
+  <p><b>Would the test find something even if nothing happened?</b> I ran a fake version: I pretended remote work started in 2017 and used only 2015–19, when there was no remote-work shock. If the method were biased towards finding a London gain, it would find one here too. It doesn't: the fake "effect" is −4.6%, the opposite direction, so remote-able jobs were not already drifting towards London.</p>
+  <p><b>Is it all one industry?</b> Leaving out finance still gives +4.9%. Leaving out information and communication still gives +4.4%. Leaving out hospitality, which Covid hit hardest, still gives +5.7%. Smaller without the big sectors, but still positive.</p>
+  <p><b>Is it big enough to be sure?</b> The chance of a result this large if remote work had no effect is about 6%. Economists usually want under 5%. Borderline: evidence, not proof.</p>
   <h3>Other things that happened at the same time</h3>
   <table>
     <tr><th>What happened</th><th>Effect on my result</th></tr>
@@ -206,9 +191,8 @@ figure.panel { margin:14px 0; }
 
 <!-- STEP 7 -->
 <section class="step">
-  <div class="stepno">STEP 7 · WHERE DID THE JOBS COME FROM?</div>
-  <h2>It depends where you draw London</h2>
-  <p>Lecture 1 says a region should be a <i>functional</i> area, where people live and commute. London's commuting area spills well into the South East and East of England. So I redrew the boundary and reran the same test.</p>
+  <h2>7. It depends where you draw London</h2>
+  <p>A region should really be a <i>functional</i> area, where people live and commute. London's commuting area spills well into the South East and East of England. So I redrew the boundary and reran the same test.</p>
   <div class="panel">
     <div class="btns"><button type="button" class="bd" data-b="L" aria-pressed="true">London = the 32 boroughs</button><button type="button" class="bd" data-b="G" aria-pressed="false">London = boroughs + commuter belt</button><button type="button" class="bd" data-b="W" aria-pressed="false">London within its own belt</button></div>
     <div class="two">
@@ -220,14 +204,13 @@ figure.panel { margin:14px 0; }
     </div>
     <p class="cap" style="margin-top:10px">Each tile is a region, coloured by how much its share of Britain's remote-able jobs changed after 2020 (percentage points). Orange gained, blue lost. Hover for numbers.</p>
   </div>
-  <p>London gained 2.3 points. The South East and East lost 2.2 between them. Add the three together and the wider London region barely moved (+0.1 points). So London did gain on the rest of Britain, but by taking jobs from its own commuter belt, not from the North or the Midlands. This is the strongest result in the project. As the Lecture 9–10 slides put it, boundaries can move the answer more than the economy does.</p>
+  <p>London gained 2.3 points. The South East and East lost 2.2 between them. Add the three together and the wider London region barely moved (+0.1 points). So London did gain on the rest of Britain, but by taking jobs from its own commuter belt, not from the North or the Midlands. This is the strongest result in the project. Where you draw the boundary can move the answer more than the economy does.</p>
   <p class="cap">One caution: the survey records home-based staff at the office that manages them. If a firm closed its Reading office and its staff now work from home but report to London, those jobs show up as London jobs though nobody moved. Some of this shift may be on paper.</p>
 </section>
 
 <!-- STEP 8 -->
 <section class="step">
-  <div class="stepno">STEP 8 · THE SECOND FOOTPRINT</div>
-  <h2>Measuring θ: how much of London's pay leaves London?</h2>
+  <h2>8. Measuring θ: how much of London's pay leaves London?</h2>
   <p>The ONS Annual Survey of Hours and Earnings (ASHE) reports London pay two ways: by where the job is, and by where the worker lives. The difference is pay earned in London by people who live outside it, who mostly spend it where they live. Here "London" is the official London region, so "outside" mostly means commuters from Kent, Surrey and Essex.</p>
   <div class="panel">
     <div class="ctl" style="grid-template-columns:1fr"><label>Year = <b id="yv"></b><input type="range" id="yr" min="2010" max="2025" step="1" value="2019"></label></div>
@@ -241,16 +224,14 @@ figure.panel { margin:14px 0; }
 
 <!-- STEP 9 -->
 <section class="step">
-  <div class="stepno">STEP 9 · BACK TO THE MODEL</div>
-  <h2>Which force was stronger?</h2>
+  <h2>9. Which force was stronger?</h2>
   <p>θ rose by about 3 points. From the map in Step 2, a 3-point rise in θ is cancelled out by a fall in trade costs of only about 5.5%, and remote technology plausibly cut the cost of serving distant clients by more than that. So the model predicts London stays the cluster, which fits the jobs data: remote-able jobs moved towards London despite the leak. The trade-cost force was the stronger one.</p>
   <p>The model can't see Step 7, though. It has only two regions, so it can't tell "London gained from the North" apart from "London gained from Reading". That is Martin's (1999) criticism of these models: their regions are not real places.</p>
 </section>
 
 <!-- STEP 10 -->
 <section class="step">
-  <div class="stepno">STEP 10 · THE ANSWER</div>
-  <h2>So, has remote work made London more dominant?</h2>
+  <h2>10. So, has remote work made London more dominant?</h2>
   <p class="answer">Yes, a little, but mostly at the expense of its neighbours. London's share of Britain's remote-able jobs rose from 30.9% to 33.2% while its share of in-person jobs barely moved, and the pay leak is too small to undo that. But the gain came from London's own commuter belt rather than the rest of the country, and the main test is borderline rather than conclusive. So remote work probably helped London, without widening the gap between the London area and the rest of Britain.</p>
   <p>In Krugman's terms, both forces showed up. The trade-cost force (firms concentrating) was stronger than the spending force (wages spent elsewhere), so the cluster got stronger. But they act at different scales: firms concentrate in the centre while workers and their spending spread across the region. This matches Ramani and Bloom's "donut effect" in US cities, where activity left city centres for their suburbs rather than for other cities.</p>
   <h3>Limits, and what would settle it</h3>
@@ -263,10 +244,8 @@ figure.panel { margin:14px 0; }
 </section>
 
 <section class="step">
-  <div class="stepno">HOW THIS WAS BUILT</div>
-  <h2>From raw data to answer</h2>
+  <h2>How it fits together</h2>
   <svg id="pipe" viewBox="0 0 720 210" role="img" aria-label="Data pipeline from the Nomis API to the results"></svg>
-  <p>All data is official ONS data from the Nomis API: BRES (dataset NM_189_1), ASHE by workplace and by residence (NM_99_1, NM_30_1). Python scripts download the data, run the model, the tests, the checks and the boundary test, and write the results to files; a final script builds this page from those results, so every number here comes straight from the analysis. The code is on GitHub. I used an AI assistant to help write the code.</p>
 </section>
 
 <footer>
@@ -281,7 +260,6 @@ figure.panel { margin:14px 0; }
     <li>ONS (2024). <a href="https://www.ons.gov.uk/employmentandlabourmarket/peopleinwork/employmentandemployeetypes/articles/whoarethehybridworkers/2024-11-11">Who are the hybrid workers?</a> Figure 6, Business Insights and Conditions Survey, December 2023.</li>
     <li>UK Parliament POST (2022). <a href="https://researchbriefings.files.parliament.uk/documents/POST-PB-0049/POST-PB-0049.pdf">Remote and hybrid working</a>, POSTbrief 49.</li>
     <li>ONS. BRES and ASHE, via <a href="https://www.nomisweb.co.uk/">Nomis</a>, accessed November 2026.</li>
-    <li>Larsson, J. P. (2026). Paper 7 Lectures 1–10, Department of Land Economy, University of Cambridge.</li>
   </ol>
 </footer>
 </div>

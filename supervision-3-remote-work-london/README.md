@@ -24,16 +24,16 @@ Krugman's (1991) core–periphery model says remote work should pull London two 
 
 | Decision | Choice | Why |
 |---|---|---|
-| Question | Has remote work made London more dominant? | Remote work is the biggest recent change to the cost of distance, so a direct test of Lectures 7–8 |
+| Question | Has remote work made London more dominant? | Remote work is the biggest recent change to the cost of distance, so a direct test of Krugman's model |
 | Theory | Krugman (1991) in the Fujita–Krugman–Venables form, plus θ | θ (wages spent in the other region) captures earning in one place and spending in another; θ = 0 is Krugman |
 | Model settings | σ = 5, μ = 0.4 | Standard textbook values; the code reproduces the textbook break (T = 1.6266) and sustain (T = 1.8073) points |
 | What to measure | The net jobs outcome and the pay leak | The trade cost of services cannot be measured directly |
 | Jobs data | ONS BRES, jobs by workplace, 2-digit industries, 2015–2024 | Finest industry detail by region |
 | Remote-able vs in-person | ONS BICS Dec 2023: hybrid + home share > 50% remote-able, < 25% in-person, in between left out (finance: UKHLS 84%) | A written rule from official data, applied by SIC section (`common.py`) |
 | Years | 2015–19 vs 2022–24; 2020–21 left out | Lockdowns distort 2020–21 |
-| Test | Difference-in-differences: log London share on industry and year effects + remote-able × post-2020, weighted by size, clustered by industry | Compares remote-able with in-person industries, so changes common to both cancel out (Lectures 9–10) |
+| Test | Difference-in-differences: log London share on industry and year effects + remote-able × post-2020, weighted by size, clustered by industry | Compares remote-able with in-person industries, so changes common to both cancel out  |
 | Checks | Year-by-year gaps, 2017 placebo, pre-2020 trends, unweighted, drop finance / info & comms / hospitality | To test whether the result is an old trend, one sector, or an artefact of the method |
-| Boundaries | London; London + South East + East; London within that wider region | Lecture 1: a region should be a functional (commuting) area |
+| Boundaries | London; London + South East + East; London within that wider region | A region should be a functional (commuting) area |
 | Pay leak | 1 − (London residents' pay bill ÷ London workplace pay bill), ASHE | Measures pay earned in London by people living outside it |
 
 ## Files and how to run
