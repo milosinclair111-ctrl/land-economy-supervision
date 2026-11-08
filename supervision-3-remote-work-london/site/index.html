@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Has remote work made London more dominant?</title>
+<style>
+
+:root { --ink:#1b1b1b; --grey:#646464; --faint:#9a9a9a; --rule:#dedbd2; --paper:#fbfaf6; --wash:#f1efe8; --link:#1a4fa0; --or:#d9581f; --bl:#2a6fc9; --gr:#2e8f63; }
+html { background:var(--paper); }
+body { margin:0; background:var(--paper); color:var(--ink); font-family:Georgia,"Times New Roman",serif; font-size:18px; line-height:1.62; }
+.wrap { max-width:760px; margin:0 auto; padding:0 20px; }
+header { padding:56px 0 30px; }
+h1 { font-size:38px; line-height:1.15; font-weight:normal; margin:0 0 12px; }
+.sub { font-size:20px; color:var(--grey); margin:0 0 14px; }
+.by { font-size:15px; color:var(--grey); font-family:Arial,Helvetica,sans-serif; }
+.step { padding:34px 0 22px; border-top:1px solid var(--rule); }
+.stepno { font-family:Arial,Helvetica,sans-serif; font-size:13px; letter-spacing:.06em; color:var(--or); font-weight:bold; }
+h2 { font-size:26px; line-height:1.25; font-weight:normal; margin:4px 0 14px; }
+h3 { font-size:18px; margin:22px 0 6px; }
+p { margin:0 0 14px; }
+a { color:var(--link); }
+ul, ol { padding-left:22px; margin:0 0 14px; } li { margin-bottom:5px; }
+.sans { font-family:Arial,Helvetica,sans-serif; }
+.panel { background:#fff; border:1px solid var(--rule); padding:16px; margin:18px 0 10px; }
+.panel canvas, .panel svg { display:block; width:100%; height:auto; }
+.ctl { font-family:Arial,Helvetica,sans-serif; font-size:14.5px; display:grid; grid-template-columns:1fr 1fr; gap:10px 24px; margin:0 0 12px; }
+.ctl label { display:block; }
+.ctl input[type=range] { width:100%; }
+.ctl b { font-variant-numeric:tabular-nums; }
+.btns { font-family:Arial,Helvetica,sans-serif; display:flex; flex-wrap:wrap; gap:8px; margin:6px 0 10px; }
+button { font:14px Arial,Helvetica,sans-serif; padding:6px 12px; border:1px solid #888; background:#fff; color:var(--ink); cursor:pointer; }
+button:hover { border-color:var(--ink); }
+button[aria-pressed=true] { background:var(--ink); color:#fff; border-color:var(--ink); }
+.read { font-family:Arial,Helvetica,sans-serif; font-size:14.5px; color:#333; min-height:1.5em; }
+.cap { font-size:15px; color:var(--grey); line-height:1.45; margin:8px 0 0; }
+.key { font-family:Arial,Helvetica,sans-serif; font-size:13.5px; color:#333; display:flex; flex-wrap:wrap; gap:4px 16px; margin:4px 0 8px; }
+.sq { display:inline-block; width:11px; height:11px; margin-right:5px; vertical-align:-1px; }
+table { border-collapse:collapse; font-family:Arial,Helvetica,sans-serif; font-size:15px; width:100%; margin:8px 0 14px; }
+th, td { padding:7px 10px 7px 0; border-bottom:1px solid var(--rule); text-align:left; vertical-align:top; }
+td.n, th.n { text-align:right; font-variant-numeric:tabular-nums; white-space:nowrap; }
+tr.hl td { font-weight:bold; }
+.check { display:grid; grid-template-columns:1fr; gap:4px; padding:14px 0; border-bottom:1px solid var(--rule); }
+.check .q { font-weight:bold; }
+.verdict { font-family:Arial,Helvetica,sans-serif; font-size:14px; font-weight:bold; }
+.v-good { color:var(--gr); } .v-mixed { color:#a06a00; }
+.answer { font-size:21px; line-height:1.5; border-left:4px solid var(--or); padding:4px 0 4px 16px; margin:16px 0; }
+.big { font-size:44px; line-height:1.05; font-family:Georgia,serif; }
+.two { display:grid; grid-template-columns:1fr 1fr; gap:16px; }
+@media (max-width:640px) { .ctl, .two { grid-template-columns:1fr; } h1 { font-size:30px; } }
+#tip { position:fixed; pointer-events:none; background:#fff; border:1px solid #999; font:13px Arial,sans-serif; padding:5px 8px; display:none; z-index:9; max-width:260px; line-height:1.4; }
+ol.refs { font-size:15px; }
+footer { padding:30px 0 70px; }
+details { margin:16px 0 18px; border-top:1px solid var(--rule); border-bottom:1px solid var(--rule); padding:8px 0; }
+summary { cursor:pointer; font-family:Arial,Helvetica,sans-serif; font-size:15px; font-weight:bold; padding:4px 0; }
+details[open] summary { margin-bottom:10px; }
+.eq { font-family:"Courier New",monospace; font-size:14.5px; line-height:1.9; margin:6px 0 14px 12px; overflow-x:auto; white-space:nowrap; }
+.rule { border-left:4px solid var(--ink); padding:2px 0 2px 12px; }
+figure.panel { margin:14px 0; }
+</style>
+</head>
+<body>
+<div id="tip"></div>
+<div class="wrap">
+
+<header>
+  <h1>Has remote work made London more dominant?</h1>
+  <p class="sub">A step-by-step answer: build Krugman's model, add remote work, then test it against ten years of ONS data.</p>
+  <div class="by">Milo Sinclair · Paper 7, Regional Economics and Policy · Supervision 3 · November 2026</div>
+</header>
+
+<!-- STEP 1 -->
+<section class="step">
+  <div class="stepno">STEP 1 · THE QUESTION AND THE TENSION</div>
+  <h2>Remote work pulls London two ways at once</h2>
+  <p>In Krugman's (1991) core–periphery model (Lectures 7–8), firms want to be near their customers because selling at a distance costs money, and workers move to whichever region pays the higher real wage. That creates a snowball: a region with a few more workers has more local spending, so more firms want to be there, so it pays more, so more workers come.</p>
+  <p>Remote work changes the model in two opposite ways:</p>
+  <ol>
+    <li><b>It lowers trade costs (T) for services.</b> A London firm can serve a client in Leeds over video instead of keeping an office there. Cheaper trade strengthens the snowball. <i>More London.</i></li>
+    <li><b>It lets people earn in one region and spend in another.</b> Someone can work for a London firm and live in Kent. I add this to Krugman's model as θ, the share of each region's wages spent in the other region. It drains the snowball, because the big region no longer gets all its workers' spending. <i>Less London.</i></li>
+  </ol>
+  <p>Try both below. Lower the trade cost and the workers pile into one region. Raise θ and they spread out again.</p>
+  <div class="panel">
+    <div class="ctl">
+      <label>Trade cost T = <b id="t1v"></b> <span style="color:#777">(1 = free trade)</span><input type="range" id="t1" min="1.05" max="2.2" step="0.01" value="2.0"></label>
+      <label>Share of wages spent in the other region, θ = <b id="th1v"></b><input type="range" id="th1" min="0" max="0.45" step="0.01" value="0"></label>
+    </div>
+    <div class="btns"><button type="button" id="even">Start from an even split</button><button type="button" id="head">Give region 1 a head start</button></div>
+    <canvas id="dots" width="1440" height="560" aria-label="Animated workers moving between two regions"></canvas>
+    <p class="read" id="dotsread"></p>
+    <p class="cap" style="margin-top:4px">Orange dots are workers who can move; grey dots are farmers who stay put, half in each region.</p>
+  </div>
+  <details>
+    <summary>How the model works</summary>
+    <p>The model is Krugman (1991) in the textbook form of Fujita, Krugman and Venables (1999, ch. 5). For any split of mobile workers between the regions (λ in region 1), four equations give each region's income, prices and wages:</p>
+    <div class="eq">
+      Income: &nbsp;Y₁ = μ[(1−θ)·λ·w₁ + θ·(1−λ)·w₂] + (1−μ)/2<br>
+      Price index: &nbsp;G₁ = [λ·w₁^(1−σ) + (1−λ)·(T·w₂)^(1−σ)]^(1/(1−σ))<br>
+      Wage: &nbsp;w₁ = [Y₁·G₁^(σ−1) + Y₂·G₂^(σ−1)·T^(1−σ)]^(1/σ)<br>
+      Real wage: &nbsp;ω₁ = w₁·[(1−θ)·G₁^(−μ) + θ·G₂^(−μ)]
+    </div>
+    <p>Region 2 is the mirror image. The only change I made to Krugman is θ: a share θ of each region's wages is spent in the other region, so it enters the income and real-wage equations. With θ = 0 it is exactly Krugman's model.</p>
+    <p>These equations cannot be solved by hand, because each region's wage depends on the other's. So the computer guesses the wages, plugs them in, gets a slightly better answer, and repeats until the answer stops changing. Then, about sixty times a second, it works out the real wage in each region, moves a few workers towards the region that pays more, and redraws the dots.</p>
+    <p>Two numbers are held fixed at standard textbook values: σ = 5 (how different the products are from each other) and μ = 0.4 (the share of spending on these goods and services). As a check, with θ = 0 my code finds the textbook tipping points: the break point at T = 1.63 and the sustain point at T = 1.81, matching the published formulas to seven significant figures.</p>
+  </details>
+  <h3>What I can measure</h3>
+  <p>Nobody publishes "the trade cost of selling services", so I cannot measure T directly. But I can measure two things:</p>
+  <ul>
+    <li><b>The net result:</b> did remote-able jobs actually move towards London? That is the outcome of both forces together.</li>
+    <li><b>The leak (θ):</b> did more of London's pay start going to people living outside London?</li>
+  </ul>
+  <p>If jobs moved into London even though θ rose, the trade-cost force must have been the stronger one.</p>
+</section>
+
+<!-- STEP 2 -->
+<section class="step">
+  <div class="stepno">STEP 2 · HOW BIG DOES EACH FORCE NEED TO BE?</div>
+  <h2>Mapping the trade-off</h2>
+  <p>Step 1 shows the two forces pull opposite ways. To see how much of one it takes to cancel the other, I ran the same model for every combination of the two: 84 values of the trade cost T (from 1.01 to 2.2) times 45 values of θ (from 0 to 0.45), which is 3,780 runs. σ and μ stay fixed. For each run the computer asks two questions: can an even split last, and can one big cluster last?</p>
+  <div class="panel">
+    <div class="btns"><button type="button" id="runmap">Run the model 3,780 times</button></div>
+    <div class="key"><span><i class="sq" style="background:var(--or)"></i>One region gets all the mobile workers</span><span><i class="sq" style="background:var(--gr)"></i>Either, depending on history</span><span><i class="sq" style="background:var(--bl)"></i>Stays spread out</span></div>
+    <canvas id="map" width="1440" height="720" aria-label="Map of model outcomes for each trade cost and spending share"></canvas>
+    <p class="read" id="mapread">Press the button to build the map. Each square is one run of the model.</p>
+  </div>
+  <p>The edge of the orange area is the trade-off. With θ = 0 a cluster survives at trade costs up to 1.81; with θ = 0.1 only up to 1.53; with θ = 0.2 only up to 1.34. So <b>every 10 points of θ has to be matched by a 12–16% fall in trade costs</b> for the cluster to survive. I use this in Step 9.</p>
+  <p class="cap">"One cluster" means all the mobile workers in one region; the farmers stay split, so the cluster holds about 70% of everyone. In Krugman's basic model, in-between splits like 60/40 are not stable: they tip one way or the other. Real London obviously isn't all-or-nothing, so I use the model for which way the forces push, not where Britain ends up. As the lecture slides say, do not take the results literally.</p>
+</section>
+
+<!-- STEP 3 -->
+<section class="step">
+  <div class="stepno">STEP 3 · WHAT EACH FORCE WOULD LEAVE BEHIND</div>
+  <h2>Two footprints to look for</h2>
+  <table>
+    <tr><th>If this force is happening…</th><th>…the data should show</th><th>Where I look</th></tr>
+    <tr><td>Cheaper trade in services</td><td>Remote-able jobs moving towards London, more than in-person jobs</td><td>Steps 4–7</td></tr>
+    <tr><td>Earning here, spending there (θ)</td><td>A bigger share of London's pay going to people who live outside London</td><td>Step 8</td></tr>
+  </table>
+</section>
+
+<!-- STEP 4 -->
+<section class="step">
+  <div class="stepno">STEP 4 · THE DATA</div>
+  <h2>What happened to London's share of each industry?</h2>
+  <p>I downloaded the ONS Business Register and Employment Survey (BRES), which counts jobs at each workplace, for every industry in every region of Great Britain from 2015 to 2024. For each industry I asked one question: <b>what share of Britain's jobs in it are in London, and did that share go up or down after 2020?</b> I compare the 2015–19 average with 2022–24, leaving out the lockdown years 2020–21.</p>
+  <h3>Which industries count as remote-able</h3>
+  <p>I sort industries by how much their staff work from home, using the ONS Business Insights and Conditions Survey (December 2023): the share of businesses where staff were working hybrid or fully from home.</p>
+  <p class="rule"><b>Remote-able:</b> more than 50%. <b>In-person:</b> less than 25%. Anything in between is left out, so the two groups are clearly different.</p>
+  <table><tr><th>Industry (SIC section)</th><th class="n">Hybrid or home</th><th>Group</th></tr><tr><td>Finance and insurance (UKHLS, Jan 2021)</td><td class="n">84%</td><td>Remote-able</td></tr><tr><td>Information and communication</td><td class="n">77%</td><td>Remote-able</td></tr><tr><td>Professional, scientific and technical</td><td class="n">60%</td><td>Remote-able</td></tr><tr><td>Education</td><td class="n">47%</td><td>Left out</td></tr><tr><td>Real estate</td><td class="n">40%</td><td>Left out</td></tr><tr><td>Administrative and support</td><td class="n">27%</td><td>Left out</td></tr><tr><td>Health and social work</td><td class="n">20%</td><td>In-person</td></tr><tr><td>Wholesale and retail</td><td class="n">20%</td><td>In-person</td></tr><tr><td>Arts, entertainment and recreation</td><td class="n">19%</td><td>In-person</td></tr><tr><td>Manufacturing</td><td class="n">15%</td><td>In-person</td></tr><tr><td>Construction</td><td class="n">14%</td><td>In-person</td></tr><tr><td>Transport and storage</td><td class="n">11%</td><td>In-person</td></tr><tr><td>Other services</td><td class="n">10%</td><td>In-person</td></tr><tr><td>Accommodation and food</td><td class="n">6%</td><td>In-person</td></tr></table>
+  <p class="cap">Finance is not covered by the ONS business survey. For finance I use the UK Household Longitudinal Study figure that 84% of finance workers worked from home in January 2021 (UK Parliament POSTbrief 49), well above the line. Sectors with no ONS figure (farming, mining, utilities, public administration) are left out.</p>
+  <div class="panel">
+    <div class="two">
+      <div><div class="sans" style="font-weight:bold;color:var(--or);margin-bottom:4px">Remote-able industries</div><svg id="barsR" viewBox="0 0 360 500" role="img" aria-label="Change in London's share, remote-able industries"></svg></div>
+      <div><div class="sans" style="font-weight:bold;color:var(--bl);margin-bottom:4px">In-person industries (largest 16)</div><svg id="barsP" viewBox="0 0 360 500" role="img" aria-label="Change in London's share, in-person industries"></svg></div>
+    </div>
+    <p class="read" id="barsread"></p>
+  </div>
+  <p class="cap">Each bar is one industry. Right means London now holds a bigger share of Britain's jobs in it than before 2020; left means a smaller share. Hover for the before and after numbers.</p>
+</section>
+
+<!-- STEP 5 -->
+<section class="step">
+  <div class="stepno">STEP 5 · THE TEST</div>
+  <h2>Did remote-able jobs move to London more than in-person jobs?</h2>
+  <h3>The result</h3>
+  <p>London's share of jobs can change for all sorts of reasons. So rather than just asking whether its share of remote-able jobs rose, I compare it with its share of in-person jobs, which remote work shouldn't affect. Anything that moved both cancels out. This is a difference-in-differences, from Lectures 9–10.</p>
+  <table>
+    <tr><th>London's share of Britain's jobs</th><th class="n">2015–19</th><th class="n">2022–24</th><th class="n">Relative change</th></tr>
+    <tr><td>Remote-able industries</td><td class="n">30.9%</td><td class="n">33.2%</td><td class="n">+7.5%</td></tr>
+    <tr><td>In-person industries</td><td class="n">13.5%</td><td class="n">13.9%</td><td class="n">+3.2%</td></tr>
+  </table>
+  <p>The proper version compares industry by industry: a regression of each industry's log London share on industry and year effects, weighted by size, across 59 industries. It gives <b>+6.0%</b>: after 2020, remote-able jobs became about 6% more concentrated in London than in-person jobs (standard error 3.0, p = 0.06).</p>
+  <h3>The worry: were they rising anyway?</h3>
+  <p>If finance and tech were already moving to London before 2020, the "effect" is just an old trend carrying on. In this data they weren't. The chart shows the gap between the two groups in each year compared with 2019. Before 2020 the points bounce around with no upward trend, and none is clearly different from zero. After 2020 the gap opens up and grows.</p>
+  <figure class="panel">
+    <svg id="event" viewBox="0 0 720 250" role="img" aria-label="Gap between remote-able and in-person industries each year"></svg>
+    <p class="cap">Gap in London concentration between remote-able and in-person industries, each year compared with 2019, with 95% confidence intervals. The grey band is 2020–21, left out.</p>
+  </figure>
+  <h3>The adjustment</h3>
+  <p>To be safe anyway, I extended each group's pre-2020 trend line forward and measured only how far the real numbers rose <i>above</i> it after 2020:</p>
+  <table>
+    <tr><th>Allowing for pre-2020 trends</th><th class="n">Without</th><th class="n">With</th><th>Verdict</th></tr>
+    <tr><td>Main data (BRES)</td><td class="n">+6.0%</td><td class="n">+11.1%</td><td>Survives; borderline (p = 0.06)</td></tr>
+  </table>
+  <h3>What's left</h3>
+  <p>Allowing for trends makes the result bigger, not smaller, because remote-able industries were, if anything, drifting slightly away from London before 2020. But the estimate is noisier, so it is still borderline. The honest conclusion: <b>London's share of remote-able jobs rose after 2020, and the timing points to remote work, but the evidence falls just short of proof.</b></p>
+</section>
+
+<!-- STEP 6 -->
+<section class="step">
+  <div class="stepno">STEP 6 · OTHER CHECKS</div>
+  <h2>Could it be a fluke?</h2>
+  <div class="check"><div class="q">Would the test find something even if nothing happened?</div><div>I ran a fake version: I pretended remote work started in 2017 and used only 2015–19, when there was no remote-work shock. If the method were biased towards finding a London gain, it would find one here too. It doesn't: the fake "effect" is −4.6%, the opposite direction, so remote-able jobs were not already drifting towards London.</div><div class="verdict v-good">The method doesn't manufacture a London gain.</div></div>
+  <div class="check"><div class="q">Is it all one industry?</div><div>Leaving out finance still gives +4.9%. Leaving out information and communication still gives +4.4%. Leaving out hospitality, which Covid hit hardest, still gives +5.7%.</div><div class="verdict v-good">Smaller without the big sectors, but still positive.</div></div>
+  <div class="check"><div class="q">Is it big enough to be sure?</div><div>The chance of a result this large if remote work had no effect is about 6%. Economists usually want under 5%.</div><div class="verdict v-mixed">Borderline: evidence, not proof.</div></div>
+  <h3>Other things that happened at the same time</h3>
+  <table>
+    <tr><th>What happened</th><th>Effect on my result</th></tr>
+    <tr><td>Brexit (finance expected to leave London)</td><td>Works against it</td></tr>
+    <tr><td>BBC to Salford, Channel 4 to Leeds, civil service moved out of London</td><td>Works against it. Film and TV is one of the few remote-able industries where London's share fell.</td></tr>
+    <tr><td>Freeports from 2021 (manufacturing and logistics outside London)</td><td>Inflates it slightly</td></tr>
+    <tr><td>Tech and AI boom</td><td>Inflates it. I can't separate this from remote work.</td></tr>
+    <tr><td>Elizabeth line (2022)</td><td>Makes central London easier to reach from the commuter belt. Relevant to Step 7.</td></tr>
+  </table>
+</section>
+
+<!-- STEP 7 -->
+<section class="step">
+  <div class="stepno">STEP 7 · WHERE DID THE JOBS COME FROM?</div>
+  <h2>It depends where you draw London</h2>
+  <p>Lecture 1 says a region should be a <i>functional</i> area, where people live and commute. London's commuting area spills well into the South East and East of England. So I redrew the boundary and reran the same test.</p>
+  <div class="panel">
+    <div class="btns"><button type="button" class="bd" data-b="L" aria-pressed="true">London = the 32 boroughs</button><button type="button" class="bd" data-b="G" aria-pressed="false">London = boroughs + commuter belt</button><button type="button" class="bd" data-b="W" aria-pressed="false">London within its own belt</button></div>
+    <div class="two">
+      <svg id="tiles" viewBox="0 0 360 460" role="img" aria-label="Change in each region's share of remote-able jobs"></svg>
+      <div class="sans" style="display:flex;flex-direction:column;justify-content:center;gap:10px">
+        <div class="big" id="bdnum"></div>
+        <div id="bdtxt" style="font-size:15px;line-height:1.45"></div>
+      </div>
+    </div>
+    <p class="cap" style="margin-top:10px">Each tile is a region, coloured by how much its share of Britain's remote-able jobs changed after 2020 (percentage points). Orange gained, blue lost. Hover for numbers.</p>
+  </div>
+  <p>London gained 2.3 points. The South East and East lost 2.2 between them. Add the three together and the wider London region barely moved (+0.1 points). So London did gain on the rest of Britain, but by taking jobs from its own commuter belt, not from the North or the Midlands. This is the strongest result in the project. As the Lecture 9–10 slides put it, boundaries can move the answer more than the economy does.</p>
+  <p class="cap">One caution: the survey records home-based staff at the office that manages them. If a firm closed its Reading office and its staff now work from home but report to London, those jobs show up as London jobs though nobody moved. Some of this shift may be on paper.</p>
+</section>
+
+<!-- STEP 8 -->
+<section class="step">
+  <div class="stepno">STEP 8 · THE SECOND FOOTPRINT</div>
+  <h2>Measuring θ: how much of London's pay leaves London?</h2>
+  <p>The ONS Annual Survey of Hours and Earnings (ASHE) reports London pay two ways: by where the job is, and by where the worker lives. The difference is pay earned in London by people who live outside it, who mostly spend it where they live. Here "London" is the official London region, so "outside" mostly means commuters from Kent, Surrey and Essex.</p>
+  <div class="panel">
+    <div class="ctl" style="grid-template-columns:1fr"><label>Year = <b id="yv"></b><input type="range" id="yr" min="2010" max="2025" step="1" value="2019"></label></div>
+    <svg id="leakbar" viewBox="0 0 720 120" role="img" aria-label="London pay bill split between residents and non-residents"></svg>
+    <p class="read" id="leakread"></p>
+    <svg id="leakline" viewBox="0 0 720 220" role="img" aria-label="Share of London pay going to non-residents over time"></svg>
+  </div>
+  <p>The share going to non-residents averaged <b>26.8%</b> in 2015–19 and <b>29.8%</b> in 2022–25, a jump of about 3 points that arrives in 2022, when hybrid working settled. That is the second force showing up.</p>
+  <p class="cap">One caveat: after the 2021 Census the ONS cut its estimate of London's population, and that feeds into how the survey scales up London residents. That makes the residents' pay total a bit smaller and the leak look a bit bigger. I still use the data, for three reasons: it is the best official measure available; the direction matches other evidence (ONS data showing hybrid working has stuck, and the "donut effect" in other cities); and my main conclusion comes from the jobs data, so it does not depend on the exact size of the leak.</p>
+</section>
+
+<!-- STEP 9 -->
+<section class="step">
+  <div class="stepno">STEP 9 · BACK TO THE MODEL</div>
+  <h2>Which force was stronger?</h2>
+  <p>θ rose by about 3 points. From the map in Step 2, a 3-point rise in θ is cancelled out by a fall in trade costs of only about 5.5%, and remote technology plausibly cut the cost of serving distant clients by more than that. So the model predicts London stays the cluster, which fits the jobs data: remote-able jobs moved towards London despite the leak. The trade-cost force was the stronger one.</p>
+  <p>The model can't see Step 7, though. It has only two regions, so it can't tell "London gained from the North" apart from "London gained from Reading". That is Martin's (1999) criticism of these models: their regions are not real places.</p>
+</section>
+
+<!-- STEP 10 -->
+<section class="step">
+  <div class="stepno">STEP 10 · THE ANSWER</div>
+  <h2>So, has remote work made London more dominant?</h2>
+  <p class="answer">Yes, a little, but mostly at the expense of its neighbours. London's share of Britain's remote-able jobs rose from 30.9% to 33.2% while its share of in-person jobs barely moved, and the pay leak is too small to undo that. But the gain came from London's own commuter belt rather than the rest of the country, and the main test is borderline rather than conclusive. So remote work probably helped London, without widening the gap between the London area and the rest of Britain.</p>
+  <p>In Krugman's terms, both forces showed up. The trade-cost force (firms concentrating) was stronger than the spending force (wages spent elsewhere), so the cluster got stronger. But they act at different scales: firms concentrate in the centre while workers and their spending spread across the region. This matches Ramani and Bloom's "donut effect" in US cities, where activity left city centres for their suburbs rather than for other cities.</p>
+  <h3>Limits, and what would settle it</h3>
+  <ul>
+    <li>Only three years of post-2020 data. Davis and Weinstein (2002) found that even huge shocks to cities can fade.</li>
+    <li>I can't separate remote work from the tech and AI boom, or the within-region shift from the Elizabeth line.</li>
+    <li>Groups are by industry, not job: a bank's cleaners count as remote-able.</li>
+    <li>To settle it: firm-level data comparing similar firms with different remote-work policies, tracking where staff live as well as where they are recorded.</li>
+  </ul>
+</section>
+
+<section class="step">
+  <div class="stepno">HOW THIS WAS BUILT</div>
+  <h2>From raw data to answer</h2>
+  <svg id="pipe" viewBox="0 0 720 210" role="img" aria-label="Data pipeline from the Nomis API to the results"></svg>
+  <p>All data is official ONS data from the Nomis API: BRES (dataset NM_189_1), ASHE by workplace and by residence (NM_99_1, NM_30_1). Python scripts download the data, run the model, the tests, the checks and the boundary test, and write the results to files; a final script builds this page from those results, so every number here comes straight from the analysis. The code is on GitHub. I used an AI assistant to help write the code.</p>
+</section>
+
+<footer>
+  <h3>References</h3>
+  <ol class="refs">
+    <li>Krugman, P. (1991). Increasing returns and economic geography. <i>Journal of Political Economy</i>, 99(3), 483–499.</li>
+    <li>Fujita, M., Krugman, P. and Venables, A. J. (1999). <i>The Spatial Economy</i>. MIT Press, ch. 5.</li>
+    <li>Puga, D. (2002). European regional policies in light of recent location theories. <i>Journal of Economic Geography</i>, 2(4), 373–406.</li>
+    <li>Davis, D. R. and Weinstein, D. E. (2002). Bones, bombs, and break points. <i>American Economic Review</i>, 92(5), 1269–1289.</li>
+    <li>Martin, R. (1999). The new "geographical turn" in economics. <i>Cambridge Journal of Economics</i>, 23(1), 65–91.</li>
+    <li>Ramani, A. and Bloom, N. (2021). <a href="https://www.nber.org/papers/w28876">The donut effect of Covid-19 on cities</a>. NBER Working Paper 28876.</li>
+    <li>ONS (2024). <a href="https://www.ons.gov.uk/employmentandlabourmarket/peopleinwork/employmentandemployeetypes/articles/whoarethehybridworkers/2024-11-11">Who are the hybrid workers?</a> Figure 6, Business Insights and Conditions Survey, December 2023.</li>
+    <li>UK Parliament POST (2022). <a href="https://researchbriefings.files.parliament.uk/documents/POST-PB-0049/POST-PB-0049.pdf">Remote and hybrid working</a>, POSTbrief 49.</li>
+    <li>ONS. BRES and ASHE, via <a href="https://www.nomisweb.co.uk/">Nomis</a>, accessed November 2026.</li>
+    <li>Larsson, J. P. (2026). Paper 7 Lectures 1–10, Department of Land Economy, University of Cambridge.</li>
+  </ol>
+</footer>
+</div>
+
+<script>
+const DATA = {"industries":[{"div":1,"section":"A","group":null,"pre":0.2562063786553582,"post":0.26574957011098954,"size":4471.7,"name":"Farming"},{"div":2,"section":"A","group":null,"pre":3.30188679245283,"post":3.761755485893417,"size":187.6,"name":"Forestry"},{"div":3,"section":"A","group":null,"pre":0.8113590263691683,"post":1.6528925619834711,"size":107.6,"name":"Fishing"},{"div":6,"section":"B","group":null,"pre":14.744525547445257,"post":12.32876712328767,"size":131.6,"name":"Oil & gas extraction"},{"div":8,"section":"B","group":null,"pre":2.3255813953488373,"post":2.5974025974025974,"size":179.0,"name":"Quarrying"},{"div":9,"section":"B","group":null,"pre":2.366255144032922,"post":2.6476578411405294,"size":177.9,"name":"Mining support"},{"div":10,"section":"C","group":"P","pre":7.641921397379912,"post":8.013640238704177,"size":3748.0,"name":"Food manufacturing"},{"div":11,"section":"C","group":"P","pre":10.272638753651412,"post":12.040557667934094,"size":456.9,"name":"Drinks manufacturing"},{"div":13,"section":"C","group":"P","pre":3.3419023136246784,"post":4.183535762483131,"size":518.5,"name":"Textiles"},{"div":14,"section":"C","group":"P","pre":25.712025316455694,"post":19.51951951951952,"size":239.3,"name":"Clothing manufacturing"},{"div":16,"section":"C","group":"P","pre":2.6047565118912797,"post":4.003443822643134,"size":729.3,"name":"Wood products"},{"div":17,"section":"C","group":"P","pre":1.9274376417233559,"post":2.8112449799196786,"size":514.7,"name":"Paper products"},{"div":18,"section":"C","group":"P","pre":11.641221374045802,"post":12.184508268059181,"size":914.3,"name":"Printing"},{"div":20,"section":"C","group":"P","pre":2.37382378100941,"post":4.534183492738221,"size":926.4,"name":"Chemicals"},{"div":21,"section":"C","group":"P","pre":5.002689618074233,"post":5.794831636648395,"size":389.9,"name":"Pharmaceuticals"},{"div":22,"section":"C","group":"P","pre":3.2217308907138342,"post":1.6579604814898932,"size":1522.3,"name":"Rubber & plastics"},{"div":23,"section":"C","group":"P","pre":5.489021956087824,"post":3.122497998398719,"size":813.1,"name":"Glass, cement & ceramics"},{"div":24,"section":"C","group":"P","pre":1.142513529765484,"post":0.930460333006856,"size":674.3,"name":"Basic metals"},{"div":25,"section":"C","group":"P","pre":3.11284046692607,"post":3.132530120481928,"size":2935.0,"name":"Metal products"},{"div":26,"section":"C","group":"P","pre":3.8648211396728382,"post":4.196816208393632,"size":1117.3,"name":"Computers & electronics"},{"div":27,"section":"C","group":"P","pre":3.811485964460469,"post":2.842497670083877,"size":739.4,"name":"Electrical equipment"},{"div":28,"section":"C","group":"P","pre":1.7535710138195333,"post":1.545972335231896,"size":1673.2,"name":"Machinery"},{"div":29,"section":"C","group":"P","pre":2.644836272040302,"post":2.0334928229665072,"size":1533.5,"name":"Motor vehicles"},{"div":30,"section":"C","group":"P","pre":1.1660018410555384,"post":1.5392781316348196,"size":1288.9,"name":"Other transport equipment"},{"div":31,"section":"C","group":"P","pre":4.204625087596356,"post":5.540780141843971,"size":821.7,"name":"Furniture"},{"div":32,"section":"C","group":"P","pre":7.75995861355406,"post":8.445297504798464,"size":806.4,"name":"Other manufacturing"},{"div":33,"section":"C","group":"P","pre":7.749381698268755,"post":10.263157894736842,"size":1247.1,"name":"Machinery repair"},{"div":35,"section":"D","group":null,"pre":9.228441754916792,"post":11.554332874828061,"size":1295.5,"name":"Electricity & gas"},{"div":36,"section":"E","group":null,"pre":1.6967126193001063,"post":1.386001386001386,"size":423.6,"name":"Water supply"},{"div":37,"section":"E","group":null,"pre":10.45045045045045,"post":6.625766871165645,"size":236.1,"name":"Sewerage"},{"div":38,"section":"E","group":null,"pre":9.050445103857568,"post":10.942956926658907,"size":1369.5,"name":"Waste"},{"div":41,"section":"F","group":"P","pre":17.20524017467249,"post":18.781407035175878,"size":4844.0,"name":"Building construction"},{"div":42,"section":"F","group":"P","pre":10.869565217391305,"post":10.299003322259136,"size":2081.0,"name":"Civil engineering"},{"div":43,"section":"F","group":"P","pre":10.582403965303595,"post":9.322678843226788,"size":8349.0,"name":"Specialist construction"},{"div":45,"section":"G","group":"P","pre":7.5505140021269055,"post":6.301050175029172,"size":5623.0,"name":"Motor trade"},{"div":46,"section":"G","group":"P","pre":13.385293120975941,"post":13.993665418946154,"size":11584.0,"name":"Wholesale"},{"div":47,"section":"G","group":"P","pre":14.571923743500866,"post":15.572443004858602,"size":28145.0,"name":"Retail"},{"div":49,"section":"H","group":"P","pre":17.796315606534584,"post":17.636363636363637,"size":5737.0,"name":"Land transport"},{"div":50,"section":"H","group":"P","pre":23.448275862068964,"post":16.94915254237288,"size":142.0,"name":"Water transport"},{"div":51,"section":"H","group":"P","pre":48.589341692789965,"post":47.47899159663865,"size":758.3,"name":"Air transport"},{"div":52,"section":"H","group":"P","pre":11.718161266013565,"post":11.359126984126984,"size":5901.0,"name":"Warehousing"},{"div":53,"section":"H","group":"P","pre":12.950819672131148,"post":12.34718826405868,"size":2551.0,"name":"Post & couriers"},{"div":55,"section":"I","group":"P","pre":15.682107947301319,"post":16.055363321799305,"size":4609.0,"name":"Hotels"},{"div":56,"section":"I","group":"P","pre":18.731252083101875,"post":18.73062489802578,"size":18837.0,"name":"Restaurants & bars"},{"div":58,"section":"J","group":"R","pre":44.258938415498505,"post":51.028806584362144,"size":1226.8,"name":"Publishing"},{"div":59,"section":"J","group":"R","pre":55.08771929824562,"post":52.215568862275454,"size":1257.1,"name":"Film & TV production"},{"div":60,"section":"J","group":"R","pre":63.26530612244898,"post":65.70841889117042,"size":421.9,"name":"Broadcasting"},{"div":61,"section":"J","group":"R","pre":19.07514450867052,"post":20.03257328990228,"size":2078.0,"name":"Telecoms"},{"div":62,"section":"J","group":"R","pre":28.494010268111808,"post":33.210934312525495,"size":7449.0,"name":"Software & IT"},{"div":63,"section":"J","group":"R","pre":41.364491001880204,"post":52.72793848407177,"size":819.4,"name":"Information services"},{"div":64,"section":"K","group":"R","pre":38.03331978870378,"post":42.64099037138927,"size":4847.0,"name":"Banking"},{"div":65,"section":"K","group":"R","pre":18.900675024108004,"post":25.117213663764232,"size":1040.7,"name":"Insurance"},{"div":66,"section":"K","group":"R","pre":38.247191011235955,"post":41.45150034891835,"size":4631.0,"name":"Other finance"},{"div":68,"section":"L","group":null,"pre":24.329159212880143,"post":25.880551301684534,"size":5940.0,"name":"Real estate"},{"div":69,"section":"M","group":"R","pre":30.329914056002217,"post":30.557768924302785,"size":7729.0,"name":"Legal & accounting"},{"div":70,"section":"M","group":"R","pre":32.56637168141593,"post":32.34649122807017,"size":8285.0,"name":"Head offices & consultancy"},{"div":71,"section":"M","group":"R","pre":17.92799412196914,"post":20.318960425280565,"size":5500.0,"name":"Architecture & engineering"},{"div":72,"section":"M","group":"R","pre":14.929658340511054,"post":18.12977099236641,"size":1519.4,"name":"Research & development"},{"div":73,"section":"M","group":"R","pre":46.569205376090544,"post":49.832717027645714,"size":1736.1,"name":"Advertising"},{"div":74,"section":"M","group":"R","pre":27.83603431839847,"post":27.55344418052256,"size":2092.0,"name":"Other professional"},{"div":75,"section":"M","group":"R","pre":4.626865671641791,"post":4.765687053216839,"size":744.6,"name":"Vets"},{"div":77,"section":"N","group":null,"pre":11.929397443700548,"post":9.448818897637794,"size":1631.0,"name":"Rental & leasing"},{"div":78,"section":"N","group":null,"pre":19.76407284768212,"post":20.757314974182446,"size":9660.0,"name":"Recruitment"},{"div":79,"section":"N","group":null,"pre":27.58336764100453,"post":28.163427211424036,"size":887.2,"name":"Travel agencies"},{"div":80,"section":"N","group":null,"pre":29.365853658536583,"post":33.18318318318318,"size":2089.5,"name":"Security"},{"div":81,"section":"N","group":null,"pre":19.888268156424584,"post":16.600616468516073,"size":7347.0,"name":"Cleaning & building services"},{"div":82,"section":"N","group":null,"pre":23.41796134899583,"post":26.32530120481928,"size":5383.0,"name":"Office support"},{"div":84,"section":"O","group":null,"pre":17.237048665620094,"post":17.29559748427673,"size":13560.0,"name":"Public administration"},{"div":85,"section":"P","group":null,"pre":14.63377377224471,"post":14.834140887066717,"size":26405.0,"name":"Education"},{"div":86,"section":"Q","group":"P","pre":14.32057875010895,"post":14.735017335314513,"size":24628.0,"name":"Health"},{"div":87,"section":"Q","group":"P","pre":8.515950069348127,"post":8.762659621312197,"size":7315.0,"name":"Residential care"},{"div":88,"section":"Q","group":"P","pre":15.138919273681909,"post":15.940450254175746,"size":9026.0,"name":"Social work"},{"div":90,"section":"R","group":"P","pre":40.421792618629176,"post":40.10938924339107,"size":1032.7,"name":"Arts"},{"div":91,"section":"R","group":"P","pre":20.812685827552034,"post":19.51219512195122,"size":1021.5,"name":"Museums & libraries"},{"div":92,"section":"R","group":"P","pre":22.002200220022004,"post":21.02908277404922,"size":832.0,"name":"Gambling"},{"div":93,"section":"R","group":"P","pre":12.662057044079516,"post":13.428943937418513,"size":4742.0,"name":"Sport & recreation"},{"div":94,"section":"S","group":"P","pre":25.10460251046025,"post":26.337448559670783,"size":2398.0,"name":"Membership organisations"},{"div":95,"section":"S","group":"P","pre":13.290229885057473,"post":19.335347432024168,"size":547.8,"name":"Repairs"},{"div":96,"section":"S","group":"P","pre":16.530849825378347,"post":19.06158357771261,"size":3384.0,"name":"Personal services"}],"event":[[2015,3.673233489137267,5.222444477545529],[2016,8.006546582026264,4.271334898548001],[2017,-0.22593523185788267,4.820815563364382],[2018,3.714230188630152,4.6364042838740005],[2019,0,0],[2022,6.862924518239877,4.807563206306535],[2023,10.525441413281806,3.228014619838998],[2024,9.055525152704025,4.143190685865262]],"leak":{"years":[2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024,2025],"share":[24.92,26.13,27.65,26.51,28.3,26.59,27.38,26.54,27.8,25.57,26.11,25.59,29.54,29.65,29.76,30.38],"bill_bn":[120.7,124.7,121.6,127.7,129.9,125.4,132.1,140.9,148.4,148.8,151.4,158.8,158.6,171.9,204.3,234.9],"nonres_bn":[30.1,32.6,33.6,33.8,36.8,33.4,36.2,37.4,41.3,38.1,39.5,40.6,46.8,51.0,60.8,71.4],"pre":26.774611494299467,"post":29.83377161854522,"pay_gap_pre":10.25279480881295,"pay_gap_post":10.578548123062632},"regions":{"East Midlands":0.17,"East":-1.26,"London":2.32,"North East":-0.21,"North West":0.57,"Scotland":-0.31,"South East":-0.95,"South West":0.1,"Wales":-0.26,"West Midlands":0.23,"Yorkshire and The Humber":-0.4},"boundary":{"london_vs_gb":{"effect":5.951383168478341,"se":3.024458391333983,"p":0.05595041211200422},"gse_vs_gb":{"effect":-1.0024224939983895,"se":1.2594352700149318,"p":0.4237419131987825},"london_within_gse":{"effect":6.700516873428031,"se":2.2990778859469327,"p":0.004788180244936196}}};
+(function () {
+  "use strict";
+  const $ = id => document.getElementById(id);
+  const tip = $("tip");
+  const show = (h, ev) => { tip.innerHTML = h; tip.style.display = "block"; tip.style.left = Math.min(ev.clientX + 14, innerWidth - 280) + "px"; tip.style.top = ev.clientY + 14 + "px"; };
+  const hide = () => tip.style.display = "none";
+  const NS = "http://www.w3.org/2000/svg";
+  const el = (t, a, p) => { const e = document.createElementNS(NS, t); for (const k in a) e.setAttribute(k, a[k]); if (p) p.appendChild(e); return e; };
+  const tx = (p, x, y, s, a) => { const t = el("text", Object.assign({ x, y, "font-family": "Arial, sans-serif", "font-size": 12, fill: "#333" }, a || {}), p); t.textContent = s; return t; };
+  const css = n => getComputedStyle(document.documentElement).getPropertyValue(n).trim();
+  const OR = css("--or"), BL = css("--bl"), GR = css("--gr");
+  const sgn = v => { const r = Math.round(v * 10) / 10; return (r > 0 ? "+" : r < 0 ? "−" : "") + Math.abs(r).toFixed(1); };
+
+  // ================= model (Krugman 1991, FKV normalisation, plus theta)
+  const SIG = 5, MU = 0.4;
+  function solve(lam, T, th, w0) {
+    const s = SIG, farm = (1 - MU) / 2, L = [lam, 1 - lam], tf = Math.pow(T, 1 - s);
+    let w = w0 ? w0.slice() : [1, 1], G = [1, 1];
+    for (let it = 0; it < 3000; it++) {
+      const Y = [MU * ((1 - th) * L[0] * w[0] + th * L[1] * w[1]) + farm, MU * ((1 - th) * L[1] * w[1] + th * L[0] * w[0]) + farm];
+      const a0 = Math.pow(w[0], 1 - s), a1 = Math.pow(w[1], 1 - s);
+      G = [Math.pow(L[0] * a0 + L[1] * a1 * tf, 1 / (1 - s)), Math.pow(L[0] * a0 * tf + L[1] * a1, 1 / (1 - s))];
+      const g0 = Math.pow(G[0], s - 1), g1 = Math.pow(G[1], s - 1);
+      const n0 = Math.pow(Y[0] * g0 + Y[1] * g1 * tf, 1 / s), n1 = Math.pow(Y[0] * g0 * tf + Y[1] * g1, 1 / s);
+      const d = Math.max(Math.abs(n0 - w[0]), Math.abs(n1 - w[1]));
+      w = [0.5 * w[0] + 0.5 * n0, 0.5 * w[1] + 0.5 * n1];
+      if (d < 1e-10) break;
+    }
+    const c = [Math.pow(G[0], -MU), Math.pow(G[1], -MU)];
+    return { w, om: [w[0] * ((1 - th) * c[0] + th * c[1]), w[1] * ((1 - th) * c[1] + th * c[0])] };
+  }
+  const gap = (lam, T, th) => { const o = solve(lam, T, th).om; return o[0] - o[1]; };
+  const regime = (T, q) => { const s = gap(0.5001, T, q) - gap(0.4999, T, q) < 0, c = gap(1, T, q) > 0; return s && c ? "both" : s ? "disp" : c ? "cp" : "part"; };
+
+  // ================= STEP 1: dots
+  (function () {
+    const cv = $("dots"), cx = cv.getContext("2d"), W = cv.width, H = cv.height;
+    const N = 120, NF = 60;
+    let lam = 0.5, wcache = null, n1 = 60;
+    const C = [{ x: W * 0.27, y: H * 0.53 }, { x: W * 0.73, y: H * 0.53 }];
+    // golden-angle packing positions
+    const slot = (k, n) => { const r = 14.5 * Math.sqrt(k + 0.5), a = k * 2.39996; return [r * Math.cos(a), r * Math.sin(a)]; };
+    const dots = []; for (let i = 0; i < N; i++) dots.push({ x: C[i % 2].x, y: C[i % 2].y });
+    const T = $("t1"), TH = $("th1");
+    const upd = () => { $("t1v").textContent = (+T.value).toFixed(2); $("th1v").textContent = (+TH.value).toFixed(2); };
+    T.addEventListener("input", upd); TH.addEventListener("input", upd); upd();
+    $("even").addEventListener("click", () => { lam = 0.5; });
+    $("head").addEventListener("click", () => { lam = 0.62; });
+    let last = 0;
+    function frame(ts) {
+      const t = +T.value, th = +TH.value;
+      const r = solve(lam, t, th, wcache); wcache = r.w;
+      const g = r.om[0] - r.om[1];
+      // migration towards the higher real wage, with a little noise so history is never perfectly even
+      lam += 2.0 * lam * (1 - lam) * g;
+      // if an even split is unstable, give region 1 a small push so the tip always goes the same way
+      if (Math.abs(lam - 0.5) < 0.02 && gap(0.51, t, th) - gap(0.49, t, th) > 0) lam += 0.003;
+      lam = Math.min(0.996, Math.max(0.004, lam));   // never exactly 0 or 1, so a cluster can still unravel
+      const target = (lam - 0.004) / 0.992 * N;
+      if (Math.abs(target - n1) > 0.75) n1 = Math.round(target);   // small hysteresis so a dot doesn't flicker between regions
+      cx.clearRect(0, 0, W, H);
+      for (let k = 0; k < 2; k++) {
+        const ln = n1 / N, share = k === 0 ? (MU * ln + (1 - MU) / 2) : (MU * (1 - ln) + (1 - MU) / 2);
+        cx.beginPath(); cx.arc(C[k].x, C[k].y, 95 + 190 * share, 0, 6.283); cx.fillStyle = "#f4f2ec"; cx.fill(); cx.strokeStyle = "#cfcabd"; cx.lineWidth = 2; cx.stroke();
+        cx.fillStyle = "#333"; cx.font = "bold 30px Arial"; cx.textAlign = "center";
+        cx.fillText(k === 0 ? "Region 1" : "Region 2", C[k].x, 34);
+        cx.font = "26px Arial"; cx.fillStyle = "#555";
+        cx.fillText("real wage " + (r.om[k] / ((r.om[0] + r.om[1]) / 2) * 100).toFixed(0), C[k].x, H - 22);
+      }
+      // farmers: fixed, half each side
+      for (let i = 0; i < NF; i++) { const k = i % 2, [dx, dy] = slot(Math.floor(i / 2), 0); cx.beginPath(); cx.arc(C[k].x + dx, C[k].y + dy, 7, 0, 6.283); cx.fillStyle = "#b9b6ad"; cx.fill(); }
+            for (let i = 0; i < N; i++) {
+        const k = i < n1 ? 0 : 1, idx = k === 0 ? i : N - 1 - i;   // fixed seat for each dot, so dots don't jump around
+        const [dx, dy] = slot(NF / 2 + idx, N);
+        const tx_ = C[k].x + dx, ty_ = C[k].y + dy, d = dots[i];
+        d.x += (tx_ - d.x) * 0.08; d.y += (ty_ - d.y) * 0.08;
+        cx.beginPath(); cx.arc(d.x, d.y, 9, 0, 6.283); cx.fillStyle = OR; cx.fill();
+      }
+      const pct = Math.round(Math.min(100, Math.max(0, (lam - 0.004) / 0.992 * 100)));
+      let dir;
+      if (Math.abs(g) < 2e-4 && pct > 40 && pct < 60) dir = (gap(0.51, t, th) - gap(0.49, t, th) < 0) ? "Settled at an even split: the pull of the bigger market is too weak to start a snowball. Lower the trade cost to see it tip." : "Even split, but it is unstable here: any small push will tip it.";
+      else if (pct >= 99 || pct <= 1) dir = "Settled: one region has all the mobile workers. Raise the trade cost or θ far enough and it spreads out again.";
+      else dir = g > 0 ? "Region 1 pays more, so workers are moving there." : "Region 2 pays more, so workers are moving there.";
+      $("dotsread").textContent = `Trade cost ${t.toFixed(2)}, θ ${th.toFixed(2)}: region 1 has ${pct}% of the mobile workers. ${dir}`;
+      requestAnimationFrame(frame);
+    }
+    requestAnimationFrame(frame);
+  })();
+
+  // ================= STEP 2: building the map
+  (function () {
+    const cv = $("map"), cx = cv.getContext("2d"), W = cv.width, H = cv.height;
+    const l = 90, r = 20, t = 20, b = 80, nT = 84, nq = 45, lo = 1.01, hi = 2.2, qhi = 0.45;
+    const cw = (W - l - r) / nT, ch = (H - t - b) / nq;
+    const col = { cp: OR, both: GR, disp: BL, part: "#bbb" };
+    function axes() {
+      cx.fillStyle = "#fff"; cx.fillRect(0, 0, W, H);
+      cx.strokeStyle = "#333"; cx.lineWidth = 2; cx.beginPath(); cx.moveTo(l, t); cx.lineTo(l, H - b); cx.lineTo(W - r, H - b); cx.stroke();
+      cx.fillStyle = "#333"; cx.font = "24px Arial"; cx.textAlign = "center";
+      [1.2, 1.4, 1.6, 1.8, 2.0, 2.2].forEach(v => cx.fillText(v.toFixed(1), l + (v - lo) / (hi - lo) * (W - l - r), H - b + 34));
+      cx.fillText("Trade cost T (cheaper to the left)", (l + W - r) / 2, H - 10);
+      cx.textAlign = "right"; [0, 0.1, 0.2, 0.3, 0.4].forEach(v => cx.fillText(v.toFixed(1), l - 12, H - b - v / qhi * (H - t - b) + 8));
+      cx.textAlign = "left"; cx.fillText("θ", 18, t + 20);
+    }
+    axes();
+    let running = false, done = false;
+    $("runmap").addEventListener("click", () => {
+      if (running) return; running = true; axes();
+      let j = 0, runs = 0;
+      const step = () => {
+        for (let rep = 0; rep < 2 && j < nq; rep++, j++) {
+          const q = qhi * (j + 0.5) / nq;
+          for (let i = 0; i < nT; i++) {
+            const T = lo + (hi - lo) * (i + 0.5) / nT, k = regime(T, q); runs++;
+            cx.fillStyle = col[k]; cx.fillRect(l + i * cw, H - b - (j + 1) * ch, cw + 0.6, ch + 0.6);
+          }
+        }
+        $("mapread").textContent = `Runs completed: ${runs.toLocaleString("en-GB")} of 3,780`;
+        if (j < nq) requestAnimationFrame(step);
+        else {
+          running = false; done = true;
+          cx.font = "bold 30px Arial"; cx.fillStyle = "#fff"; cx.textAlign = "center";
+          cx.fillText("One cluster", l + (1.2 - lo) / (hi - lo) * (W - l - r), H - b - 0.05 / qhi * (H - t - b));
+          cx.fillText("Spread out", l + (1.95 - lo) / (hi - lo) * (W - l - r), H - b - 0.3 / qhi * (H - t - b));
+          $("mapread").textContent = "Done: 3,780 runs. Remote work moves us left and up at once, so where we end up depends on which move is bigger.";
+        }
+      };
+      requestAnimationFrame(step);
+    });
+  })();
+
+  // ================= STEP 4: change in London's share, by industry (data from analysis.py)
+  (function () {
+    const drawBars = (id, list, col) => {
+      const svg = $(id), W = 360, l = 158, r = 40, rowH = 28, x0 = -6, x1 = 12;
+      const X = v => l + (v - x0) / (x1 - x0) * (W - l - r);
+      svg.setAttribute("viewBox", `0 0 360 ${rowH * list.length + 40}`);
+      [-4, 0, 4, 8].forEach(v => { el("line", { x1: X(v), x2: X(v), y1: 0, y2: rowH * list.length, stroke: v === 0 ? "#333" : "#ebe8e0", "stroke-width": v === 0 ? 1.5 : 1 }, svg); tx(svg, X(v), rowH * list.length + 16, (v > 0 ? "+" : "") + v, { "text-anchor": "middle", "font-size": 11 }); });
+      tx(svg, (l + W - r) / 2, rowH * list.length + 32, "change in London's share (points)", { "text-anchor": "middle", "font-size": 11, fill: "#666" });
+      list.forEach((o, i) => {
+        const y = i * rowH, chg = o.post - o.pre, v = Math.max(x0, Math.min(x1, chg));
+        const g = el("g", {}, svg);
+        tx(g, l - 6, y + 18, o.name, { "text-anchor": "end", "font-size": 11.5 });
+        el("rect", { x: Math.min(X(0), X(v)), y: y + 6, width: Math.max(1, Math.abs(X(v) - X(0))), height: rowH - 12, fill: col }, g);
+        tx(g, v >= 0 ? X(v) + 4 : X(v) - 4, y + 18, sgn(chg), { "text-anchor": v >= 0 ? "start" : "end", "font-size": 11 });
+        el("rect", { x: 0, y, width: W, height: rowH, fill: "transparent" }, g);
+        g.addEventListener("mousemove", ev => show(`<b>${o.name}</b> (SIC ${String(o.div).padStart(2, "0")})<br>London's share of Britain's jobs:<br>2015–19: ${o.pre.toFixed(1)}%<br>2022–24: ${o.post.toFixed(1)}%`, ev));
+        g.addEventListener("mouseleave", hide);
+      });
+    };
+    const R = DATA.industries.filter(o => o.group === "R").sort((a, b) => (b.post - b.pre) - (a.post - a.pre));
+    const P = DATA.industries.filter(o => o.group === "P").sort((a, b) => b.size - a.size).slice(0, 16).sort((a, b) => (b.post - b.pre) - (a.post - a.pre));
+    drawBars("barsR", R, OR); drawBars("barsP", P, BL);
+    const up = a => a.filter(o => o.post > o.pre).length, avg = a => a.reduce((x, o) => x + o.post - o.pre, 0) / a.length;
+    $("barsread").textContent = `London's share rose in ${up(R)} of ${R.length} remote-able industries (average ${sgn(avg(R))} points), and in ${up(P)} of ${P.length} large in-person industries (average ${sgn(avg(P))} points).`;
+  })();
+
+  // ================= STEP 5: year-by-year gap (event study from analysis.py)
+  (function () {
+    const svg = $("event"), W = 720, H = 250, l = 50, r = 14, t = 14, b = 34;
+    const ys = [2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024];
+    const X = y => l + (y - 2014.5) / 10 * (W - l - r), Y = v => t + (1 - (v + 15) / 40) * (H - t - b);
+    el("rect", { x: X(2019.6), y: t, width: X(2021.4) - X(2019.6), height: H - t - b, fill: "#efede6" }, svg);
+    [-10, 0, 10, 20].forEach(v => { el("line", { x1: l, x2: W - r, y1: Y(v), y2: Y(v), stroke: v === 0 ? "#333" : "#ebe8e0" }, svg); tx(svg, l - 6, Y(v) + 4, (v > 0 ? "+" : "") + v + "%", { "text-anchor": "end" }); });
+    ys.forEach(y => tx(svg, X(y), H - 10, y, { "text-anchor": "middle" }));
+    DATA.event.forEach(([y, bb, se]) => {
+      if (se) el("line", { x1: X(y), x2: X(y), y1: Y(bb - 1.96 * se), y2: Y(bb + 1.96 * se), stroke: "#666", "stroke-width": 1.5 }, svg);
+      const c = el("circle", { cx: X(y), cy: Y(bb), r: 6, fill: y >= 2022 ? OR : "#666" }, svg);
+      c.addEventListener("mousemove", ev => show(y === 2019 ? "<b>2019</b>: the reference year" : `<b>${y}</b>: ${sgn(bb)}% (95% range ${sgn(bb - 1.96 * se)} to ${sgn(bb + 1.96 * se)})`, ev));
+      c.addEventListener("mouseleave", hide);
+    });
+  })();
+
+  // ================= STEP 7: boundary tiles (data from region_test.py)
+  (function () {
+    const pos = { "Scotland": [1, 0], "North East": [2, 1], "North West": [1, 2], "Yorkshire and The Humber": [2, 2], "Wales": [0, 3], "West Midlands": [1, 3], "East Midlands": [2, 3], "East": [3, 3], "South West": [0, 4], "South East": [1, 4], "London": [2, 4] };
+    const short = { "Yorkshire and The Humber": "Yorkshire" };
+    const svg = $("tiles"), S = 82, G = 6, ox = 10, oy = 10;
+    const shade = v => { const a = Math.min(1, Math.abs(v) / 2.4); return v >= 0 ? `rgba(217,88,31,${0.15 + 0.85 * a})` : `rgba(42,111,201,${0.15 + 0.85 * a})`; };
+    const T = DATA.boundary;
+    const res = {
+      L: [T.london_vs_gb, "<b>London vs the rest of Britain.</b> Remote-able jobs became more concentrated in London after 2020. Borderline significant."],
+      G: [T.gse_vs_gb, "<b>London plus the South East and East vs the rest of Britain.</b> No real change. The wider London region did not gain on the rest of the country."],
+      W: [T.london_within_gse, "<b>London vs its own commuter belt.</b> The strongest result in the project. The jobs London gained came from the regions around it."]
+    };
+    const draw = mode => {
+      svg.innerHTML = "";
+      const inside = mode === "L" ? ["London"] : ["London", "South East", "East"];
+      Object.entries(pos).forEach(([name, [c, rw]]) => {
+        const v = DATA.regions[name], x = ox + c * (S + G), y = oy + rw * (S + G), label = (short[name] || name), dark = Math.abs(v) > 1;
+        const g = el("g", {}, svg);
+        el("rect", { x, y, width: S, height: S, fill: shade(v), stroke: inside.includes(name) ? "#111" : "#fff", "stroke-width": inside.includes(name) ? 4 : 1 }, g);
+        const words = label.split(" "); const lines = label.length > 11 ? [words[0], words.slice(1).join(" ")] : [label];
+        lines.forEach((ln, k) => tx(g, x + S / 2, y + S / 2 - 4 + k * 14 - (lines.length - 1) * 7, ln, { "text-anchor": "middle", "font-size": 12, "font-weight": "bold", fill: dark ? "#fff" : "#222" }));
+        tx(g, x + S / 2, y + S / 2 + 24, sgn(v), { "text-anchor": "middle", "font-size": 13, fill: dark ? "#fff" : "#222" });
+        g.addEventListener("mousemove", ev => show(`<b>${name}</b><br>Share of Britain's remote-able jobs: ${sgn(v)} points after 2020`, ev));
+        g.addEventListener("mouseleave", hide);
+      });
+      const r = res[mode][0];
+      $("bdnum").textContent = sgn(r.effect) + "%";
+      $("bdtxt").innerHTML = res[mode][1] + `<br><span style="color:#666">p = ${r.p.toFixed(3)}</span>`;
+      $("bdnum").style.color = mode === "G" ? "#646464" : OR;
+    };
+    document.querySelectorAll(".bd").forEach(bn => bn.addEventListener("click", () => {
+      document.querySelectorAll(".bd").forEach(x => x.setAttribute("aria-pressed", String(x === bn))); draw(bn.dataset.b);
+    }));
+    draw("L");
+  })();
+
+  // ================= STEP 8: pay leak (data from analysis.py)
+  (function () {
+    const K = DATA.leak, Yr = K.years, bill = K.bill_bn, non = K.nonres_bn, sh = K.share;
+    const bar = $("leakbar"), line = $("leakline");
+    const W = 720, H = 220, l = 46, r = 12, t = 12, b = 30;
+    const X = y => l + (y - 2009.5) / 16 * (W - l - r), Y = v => t + (1 - (v - 22) / 10) * (H - t - b);
+    el("rect", { x: X(2019.6), y: t, width: X(2021.4) - X(2019.6), height: H - t - b, fill: "#efede6" }, line);
+    [22, 24, 26, 28, 30, 32].forEach(v => { el("line", { x1: l, x2: W - r, y1: Y(v), y2: Y(v), stroke: "#ebe8e0" }, line); tx(line, l - 6, Y(v) + 4, v + "%", { "text-anchor": "end" }); });
+    [2010, 2013, 2016, 2019, 2022, 2025].forEach(y => tx(line, X(y), H - 8, y, { "text-anchor": "middle" }));
+    el("polyline", { points: Yr.map((y, i) => X(y) + "," + Y(sh[i])).join(" "), fill: "none", stroke: "#1b1b1b", "stroke-width": 2 }, line);
+    el("line", { x1: X(2015), x2: X(2019), y1: Y(K.pre), y2: Y(K.pre), stroke: "#888", "stroke-dasharray": "4 3" }, line);
+    el("line", { x1: X(2022), x2: X(2025), y1: Y(K.post), y2: Y(K.post), stroke: "#888", "stroke-dasharray": "4 3" }, line);
+    const dot = el("circle", { r: 6, fill: OR }, line);
+    const draw = () => {
+      const y = +$("yr").value, i = Yr.indexOf(y), share = non[i] / bill[i];
+      $("yv").textContent = y;
+      bar.innerHTML = "";
+      const w1 = (W - 2) * (1 - share);
+      el("rect", { x: 0, y: 20, width: w1, height: 56, fill: "#cfcabd" }, bar);
+      el("rect", { x: w1 + 2, y: 20, width: W - w1 - 2, height: 56, fill: OR }, bar);
+      tx(bar, 10, 54, `Paid to London residents: £${(bill[i] - non[i]).toFixed(0)}bn`, { "font-size": 15, fill: "#222" });
+      tx(bar, W - 10, 54, `To non-residents: £${non[i].toFixed(0)}bn`, { "font-size": 15, fill: "#fff", "text-anchor": "end", "font-weight": "bold" });
+      tx(bar, 0, 102, `London workplace pay bill ${y}: £${bill[i].toFixed(0)}bn (ASHE-based estimate, cash terms)`, { "font-size": 14, fill: "#555" });
+      $("leakread").textContent = `In ${y}, ${(100 * share).toFixed(1)}% of the pay earned in London went to people living outside London.`;
+      dot.setAttribute("cx", X(y)); dot.setAttribute("cy", Y(sh[i]));
+    };
+    $("yr").addEventListener("input", draw); draw();
+  })();
+
+  // ================= pipeline diagram
+  (function () {
+    const svg = $("pipe");
+    const box = (x, y, w, h, title, sub, fill) => {
+      el("rect", { x, y, width: w, height: h, fill: fill || "#fff", stroke: "#999" }, svg);
+      tx(svg, x + w / 2, y + 22, title, { "text-anchor": "middle", "font-size": 13, "font-weight": "bold" });
+      sub.forEach((s, k) => tx(svg, x + w / 2, y + 40 + k * 15, s, { "text-anchor": "middle", "font-size": 11.5, fill: "#555" }));
+    };
+    const arrow = (x1, y1, x2, y2) => { el("line", { x1, y1, x2, y2, stroke: "#777", "stroke-width": 1.5, "marker-end": "url(#pa)" }, svg); };
+    const defs = el("defs", {}, svg), mk = el("marker", { id: "pa", viewBox: "0 0 10 10", refX: 9, refY: 5, markerWidth: 6, markerHeight: 6, orient: "auto" }, defs);
+    el("path", { d: "M0,0 L10,5 L0,10 z", fill: "#777" }, mk);
+    box(4, 70, 120, 70, "Nomis API", ["ONS data,", "downloaded by code"], "#f4f2ec");
+    box(170, 4, 150, 62, "BRES", ["jobs by workplace,", "88 industries × 11 regions"]);
+    box(170, 144, 150, 62, "ASHE", ["pay by workplace", "and by residence"]);
+    
+    box(366, 4, 150, 62, "Group industries", ["remote-able vs", "in-person (ONS rates)"]);
+    box(366, 74, 150, 62, "Tests", ["diff-in-diff, checks,", "boundary test"]);
+    box(366, 144, 150, 62, "Pay leak", ["London pay earned", "by non-residents"]);
+    box(562, 40, 154, 62, "Krugman model", ["3,780 runs with θ", "(checked vs textbook)"], "#f4f2ec");
+    box(562, 112, 154, 62, "Answer", ["jobs in,", "people and pay out"], "#fbe3d6");
+    arrow(124, 105, 170, 35); arrow(124, 105, 170, 175);
+    arrow(320, 35, 366, 35); arrow(320, 175, 366, 175); arrow(441, 66, 441, 74);
+    arrow(516, 105, 562, 143); arrow(516, 175, 562, 143); arrow(639, 102, 639, 112);
+  })();
+})();
+</script>
+</body>
+</html>

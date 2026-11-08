@@ -1,0 +1,31 @@
+{
+ "london_vs_gb": {
+  "effect": 5.951383168478341,
+  "se": 3.024458391333983,
+  "p": 0.05595041211200422
+ },
+ "gse_vs_gb": {
+  "effect": -1.0024224939983895,
+  "se": 1.2594352700149318,
+  "p": 0.4237419131987825
+ },
+ "london_within_gse": {
+  "effect": 6.700516873428031,
+  "se": 2.2990778859469327,
+  "p": 0.004788180244936196
+ },
+ "regions": {
+  "East Midlands": 0.17,
+  "East": -1.26,
+  "London": 2.32,
+  "North East": -0.21,
+  "North West": 0.57,
+  "Scotland": -0.31,
+  "South East": -0.95,
+  "South West": 0.1,
+  "Wales": -0.26,
+  "West Midlands": 0.23,
+  "Yorkshire and The Humber": -0.4
+ },
+ "gse_change": 0.11
+}
